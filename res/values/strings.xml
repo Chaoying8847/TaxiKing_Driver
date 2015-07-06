@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Taxi King</string>
+    <string name="logo">LOGO</string>
+    
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="terms">你同意我们的用户条约</string>
+    <string name="phone_number">手机号码</string>
+    <string name="send_request">发送验证码</string>
+    <string name="confirm_number">验证码</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
+    <string name="complete">完成</string>
+    <string name="password">密码</string>
+    <string name="terms_of_service">服务协议</string>
+    
+    
+    <string name="online">在线</string>
+    <string name="complete_order">已完成订单</string>
+    <string name="logout">退出</string>
+    
+    <string name="location">地点:</string>
+    <string name="time">时间:</string>
+    <string name="order_id">订单号:</string>
+    
+    <string name="new_order">有订单</string>
+    <string name="address">地址 :</string>
+    <string name="total_price">总价 :</string>
+    <string name="slide_to_accept">滑动至尾部接受订单</string>
+    
+    <string name="check_order">订单已确认</string>
+    <string name="call_to_customer">联系乘客</string>
+    <string name="order_time">订单时间:</string>
+    
+    <string name="money_unit">元</string>
+    
+    
+    
+    <!-- Message box -->
+    <string name="warning">警告</string>
+    <string name="error">错误</string>
+    <string name="msg_network_error">网络不可用。 您必须链接到互联网才能使用这个程序。</string>
+    <string name="msg_location_error">你必须设置的位置。</string>
+    <string name="msg_input_phone_number">Must enter a valid phone number</string>
+    <string name="msg_input_verify_code">Must enter a 4 digit verification code</string>
+    <string name="msg_input_password">Must enter a password greater than 4 characters</string>
+    <string name="msg_input_anything">Must not leave any empty input</string>
+    
+    <string name="msg_exit_confirm">Please tap one more time to exit</string>
+    <string name="msg_logout_confirm">您是不是要退出？</string>
+    <string name="img_description"></string>
+    
+</resources>

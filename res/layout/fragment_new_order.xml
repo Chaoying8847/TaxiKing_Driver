@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_color" >
+    
+    <LinearLayout
+        android:id="@+id/header_view"
+        android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical">
+	    
+	    <TextView
+	        android:layout_width="match_parent"
+            android:layout_height="@dimen/menu_size"
+	   		android:background="@color/main_pink_color"
+            android:gravity="center"
+            android:text="@string/new_order"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"/>
+	    <TextView
+	        android:layout_width="match_parent"
+		    android:layout_height="6dp"
+		    android:background="@drawable/topbar_shadow" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/order_content"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large"
+        android:padding="@dimen/margin_extra_large"
+	    android:layout_below="@id/header_view"
+	    android:background="@drawable/input_bg_white"
+	    android:orientation="vertical">
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/menu_size"
+	        android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+            	android:layout_height="match_parent"
+                android:text="@string/address"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/txt_address"
+                android:layout_width="0dp"
+            	android:layout_height="match_parent"
+            	android:layout_weight="1"
+            	android:gravity="right"
+                android:text=""
+                android:textColor="@color/text_gray"
+                android:textSize="18sp" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/menu_size"
+	        android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+            	android:layout_height="match_parent"
+                android:text="@string/total_price"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/txt_order_total_price"
+                android:layout_width="0dp"
+            	android:layout_height="match_parent"
+            	android:layout_weight="1"
+            	android:gravity="right"
+                android:text=""
+                android:textColor="@color/text_gray"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/menu_size"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/order_id"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txt_order_id"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:textColor="@color/text_gray"
+                android:textSize="18sp" />
+        </LinearLayout>
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/menu_size"
+            android:orientation="horizontal" />
+        
+	</LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large"
+        android:layout_alignParentBottom="true"
+        android:padding="@dimen/margin_large"
+	    android:orientation="vertical">
+
+        <com.taxiking.driver.view.Slider
+	        android:id="@+id/sliding_widget"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="@dimen/margin_large" />
+        
+        <TextView
+	        android:id="@+id/txt_title"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="center"
+	        android:text="@string/slide_to_accept"
+	        android:textColor="@color/main_pink_color"
+	        android:textSize="18sp"/>
+    </LinearLayout>
+</RelativeLayout>

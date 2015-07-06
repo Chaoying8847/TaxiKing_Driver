@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="main_bg_color">#ecdde2</color>
+    <color name="main_pink_color">#d64569</color>
+    
+    <color name="text_gray">#a7a9ac</color>
+    <color name="text_orange">#f7941e</color>
+    
+    <color name="grey_color">#939598</color>
+    
+    
+</resources>

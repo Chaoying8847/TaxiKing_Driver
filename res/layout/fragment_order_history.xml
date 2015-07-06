@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_color" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_tile">
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/header_view"
+        android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical">
+	    
+	    <TextView
+	        android:layout_width="match_parent"
+            android:layout_height="@dimen/menu_size"
+	   		android:background="@color/main_pink_color"
+            android:gravity="center"
+            android:text="@string/online"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"/>
+	    <TextView
+	        android:layout_width="match_parent"
+		    android:layout_height="6dp"
+		    android:background="@drawable/topbar_shadow" />
+    </LinearLayout>
+    
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+	    android:layout_height="@dimen/menu_size"
+	    android:layout_margin="@dimen/margin_large"
+	    android:layout_alignParentBottom="true"
+	    android:layout_centerHorizontal="true"
+	    android:background="@drawable/btn_outline_pink"
+	    android:gravity="center"
+        android:text="@string/logout"
+        android:textStyle="bold"
+        android:textColor="@color/main_pink_color"
+        android:textSize="22sp"/>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+		android:layout_below="@id/header_view"
+		android:layout_above="@id/btn_logout"
+		android:layout_marginTop="@dimen/margin_large"
+		android:layout_marginLeft="@dimen/margin_large"
+		android:layout_marginRight="@dimen/margin_large"
+		android:orientation="vertical" >
+	    
+        <TextView
+	        android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_normal"
+            android:text="@string/complete_order"
+            android:textStyle="bold"
+            android:textColor="@color/main_pink_color"
+            android:textSize="16sp"/>
+        
+        <ListView
+	        android:id="@+id/order_list"
+	        android:layout_width="match_parent"
+	        android:layout_height="0dp"
+	        android:layout_weight="1"
+	        android:choiceMode="singleChoice"
+	        android:background="@drawable/outline"
+	        android:dividerHeight="0dp" >
+	    </ListView>
+    </LinearLayout>
+    
+
+</RelativeLayout>
