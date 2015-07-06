@@ -102,28 +102,22 @@
             android:orientation="horizontal" />
         
 	</LinearLayout>
-    
-    <LinearLayout
+
+    <TextView
+        android:id="@+id/txt_title"
         android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_large"
         android:layout_alignParentBottom="true"
-        android:padding="@dimen/margin_large"
-	    android:orientation="vertical">
-
-        <com.taxiking.driver.view.Slider
-	        android:id="@+id/sliding_widget"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_marginBottom="@dimen/margin_large" />
-        
-        <TextView
-	        android:id="@+id/txt_title"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:gravity="center"
-	        android:text="@string/slide_to_accept"
-	        android:textColor="@color/main_pink_color"
-	        android:textSize="18sp"/>
-    </LinearLayout>
+        android:gravity="center"
+        android:text="@string/slide_to_accept"
+        android:textColor="@color/main_pink_color"
+        android:textSize="18sp"/>
+    
+    <com.taxiking.driver.view.Slider
+        android:id="@+id/sliding_widget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_large"
+        android:layout_above="@id/txt_title" />
 </RelativeLayout>
