@@ -146,7 +146,7 @@ public class LoginFragment extends BaseFragment {
 					try {
 						String errorMsg = res.getString("error");
 						Toast.makeText(parent, errorMsg, Toast.LENGTH_LONG).show();
-					}catch (JSONException e) {
+					} catch (JSONException e) {
 						e.printStackTrace();
 					}
 				}

@@ -5,17 +5,14 @@ import java.text.DecimalFormat;
 
 public class AppConstants {
 	
-	public static final String HOST = "http://184.73.117.45/android";
+	public static final String HOST = "http://184.73.117.45/android/driver_api";
 	public static final String HOST_REGISTER_1		= HOST + "/register_1";
 	public static final String HOST_REGISTER_2 		= HOST + "/register_2";
 	public static final String HOST_REGISTER_3 		= HOST + "/register_3";
 	public static final String HOST_LOGIN 			= HOST + "/login";
-	public static final String HOST_AUTO_LOGIN 		= HOST + "/auto_login";
-	public static final String HOST_REQUEST 		= HOST + "/request";
 	public static final String HOST_CURRENT_STATUS 	= HOST + "/current_status";
-	public static final String HOST_CONFIRM_FINISH 	= HOST + "/confirm_finish";
-	public static final String HOST_RATE 			= HOST + "/rate";
-	public static final String HOST_SEND_INFO 		= HOST + "/send_info";
+	public static final String HOST_ACCEPT_ORDER 	= HOST + "/accept_order";
+	public static final String HOST_LOGOUT	 		= HOST + "/logout";
 	
 	public static final String API_KEY = "xxx";
 	public static final String API_SECRET = "xxx";

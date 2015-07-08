@@ -1,9 +1,21 @@
 package com.taxiking.driver;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.widget.Toast;
 
+import com.taxiking.driver.apiservice.HttpApi;
+import com.taxiking.driver.apiservice.HttpApi.METHOD;
 import com.taxiking.driver.base.BaseFragmentActivity;
 import com.taxiking.driver.fragment.NewOrderFragment;
 import com.taxiking.driver.fragment.OrderCheckFragment;
@@ -60,10 +72,7 @@ public class MainActivity extends BaseFragmentActivity {
 			@Override
 			public void onButtonClick(int id) {
 				if (id == R.id.btn_1){
-					prefs.setSession("");
-					Intent intent = new Intent(MainActivity.instance, LoginActivity.class);
-					startActivity(intent);
-					MainActivity.instance.finish();
+					new LogoutAsyncTask().execute();
 				}
 			}
 		});
@@ -100,6 +109,48 @@ public class MainActivity extends BaseFragmentActivity {
 	
 	public void hideWaitView() {
 		waitDlg.cancel();
+	}
+	
+	public class LogoutAsyncTask extends AsyncTask<String, String, JSONObject> {
+
+		@Override
+		protected void onPreExecute() {
+			showWaitView();
+			super.onPreExecute();
+		}
+		
+		@Override
+		protected JSONObject doInBackground(String... args) {
+			
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("session_token", prefs.getSession()));
+
+			return HttpApi.callToJson(AppConstants.HOST_LOGOUT, METHOD.POST, params, null);
+		}
+
+		@Override
+		protected void onPostExecute(JSONObject res) {
+			MainActivity.instance.hideWaitView();
+			try {
+				String result = res.getString("result");
+	
+				if (result.equalsIgnoreCase("success")) {
+					prefs.setSession("");
+					Intent intent = new Intent(MainActivity.instance, LoginActivity.class);
+					startActivity(intent);
+					MainActivity.instance.finish();
+				} else {
+					try {
+						String errorMsg = res.getString("error");
+						Toast.makeText(MainActivity.this, errorMsg, Toast.LENGTH_LONG).show();
+					}catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 }
