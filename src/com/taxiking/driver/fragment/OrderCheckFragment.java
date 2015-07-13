@@ -8,9 +8,15 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +29,10 @@ import com.taxiking.driver.R;
 import com.taxiking.driver.apiservice.HttpApi;
 import com.taxiking.driver.apiservice.HttpApi.METHOD;
 import com.taxiking.driver.base.BaseFragment;
-import com.taxiking.driver.fragment.OrderHistoryFragment.CurrentAsyncTask;
 import com.taxiking.driver.model.CurrentStatus;
 import com.taxiking.driver.utils.AppConstants;
 import com.taxiking.driver.utils.AppDataUtilities;
+import com.taxiking.driver.utils.CommonUtil;
 
 public class OrderCheckFragment extends BaseFragment implements View.OnClickListener {
 
@@ -91,12 +97,32 @@ public class OrderCheckFragment extends BaseFragment implements View.OnClickList
 		switch (v.getId()) {
 			case R.id.btn_call_customer:
 //			if (status.driver_phone!=null && !status.driver_phone.equalsIgnoreCase("")) {
-//				// call
+//				makeCall(status.driver_phone);
 //			}
 			break;
 		default:
 			break;
 		}
+	}
+	
+	private void makeCall(String mDialSting) {
+		if (((TelephonyManager)parent.getSystemService(Context.TELEPHONY_SERVICE)).getPhoneType() == TelephonyManager.PHONE_TYPE_NONE) {
+			CommonUtil.showMessageDialog(parent, getString(R.string.error),  "This device has not call ability.");
+			return;
+		}
+
+		try {
+			Intent callIntent = new Intent(Intent.ACTION_CALL);
+	        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	        callIntent.setData(Uri.parse("tel:"+mDialSting));
+	        if (Build.VERSION.SDK_INT > 20) // Build.VERSION_CODES.KITKAT
+	        	callIntent.setPackage("com.android.server.telecom");
+	        else
+	        	callIntent.setPackage("com.android.phone");
+	        startActivity(callIntent);
+		} catch (ActivityNotFoundException activityException) {
+	    	System.out.println("Call Failed");
+	    }
 	}
 	
 	public class CurrentAsyncTask extends AsyncTask<String, String, JSONObject> {
