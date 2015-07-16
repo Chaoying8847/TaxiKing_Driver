@@ -41,6 +41,13 @@
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 	
+    
+	<uses-permission android:name="android.permission.VIBRATE" />
+	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+	<permission android:name="com.taxiking.driver.permission.C2D_MESSAGE"
+		android:protectionLevel="signature" />
+	<uses-permission android:name="com.taxiking.driver.permission.C2D_MESSAGE" />
+	
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
@@ -80,6 +87,23 @@
         <service android:name=".service.GPSTracker" />
         <service android:name="com.taxiking.driver.service.SubmitService"
             android:enabled="true"/>
+        
+        
+        <service android:name="com.parse.PushService" />
+		<receiver android:name="com.parse.ParseBroadcastReceiver">
+			<intent-filter>
+				<action android:name="android.intent.action.BOOT_COMPLETED" />
+				<action android:name="android.intent.action.USER_PRESENT" />
+			</intent-filter>
+		</receiver>
+		<receiver android:name="com.parse.GcmBroadcastReceiver"
+			android:permission="com.google.android.c2dm.permission.SEND">
+			<intent-filter>
+				<action android:name="com.google.android.c2dm.intent.RECEIVE" />
+				<action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+				<category android:name="com.taxiking.driver" />
+			</intent-filter>
+		</receiver>
 
     </application>
 
