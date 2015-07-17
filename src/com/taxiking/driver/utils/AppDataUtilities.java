@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.taxiking.driver.model.CurrentStatus;
+import com.taxiking.driver.model.Driver;
 import com.taxiking.driver.model.OrderHistory;
 
 public class AppDataUtilities {
@@ -16,7 +17,7 @@ public class AppDataUtilities {
 	// drivers parse
 	public ArrayList <OrderHistory> orderHistoryArray;
 	public CurrentStatus status;
-	
+	public Driver driver;
 	public String transaction_id;
 	
 	public AppDataUtilities() {
@@ -45,6 +46,10 @@ public class AppDataUtilities {
 			// current status
 			JSONObject new_order = res.getJSONObject("new_order");
 			status = CurrentStatus.fromJSON(new_order);
+			
+			// driver
+			JSONObject driverInfo = res.getJSONObject("accoint_Info");
+			driver = Driver.fromJSON(driverInfo);
 			
 		} catch (JSONException e) {
 			e.printStackTrace();

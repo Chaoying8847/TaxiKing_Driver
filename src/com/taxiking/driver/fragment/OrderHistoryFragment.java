@@ -9,11 +9,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.ContactsContract.DataUsageFeedback;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,7 +22,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.taxiking.driver.LoginActivity;
 import com.taxiking.driver.MainActivity;
 import com.taxiking.driver.R;
 import com.taxiking.driver.apiservice.HttpApi;
@@ -183,6 +180,9 @@ public class OrderHistoryFragment extends BaseFragment {
 						if (status.state.equalsIgnoreCase("new")) {
 							AppDataUtilities.sharedInstance().status = status;
 							MainActivity.instance.SwitchContent(AppConstants.SW_FRAGMENT_NEW_ORDER, null);
+						} else if (status.state.equalsIgnoreCase("accepted")) {
+							AppDataUtilities.sharedInstance().status = status;
+							MainActivity.instance.SwitchContent(AppConstants.SW_FRAGMENT_CONFIRM_ORDER, null);
 						} else {
 							callCurrentStatus();
 						}						

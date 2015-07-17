@@ -14,6 +14,7 @@ public class CurrentStatus {
 	public String order_time;
 	public String order_address;
 	public double price;
+	public String phone_number;
 	public String error;
 	
 	public static CurrentStatus fromJSON(JSONObject obj) {
@@ -25,6 +26,7 @@ public class CurrentStatus {
 			status.order_time		= obj.getString("time_created");
 			status.order_address	= obj.getString("address_string");
 			status.price			= obj.getDouble("price");
+			status.phone_number		= obj.getString("phone_number");
 			status.error			= "";
 		} catch (JSONException e) {
 			Log.d(TAG, e.toString());

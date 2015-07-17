@@ -96,9 +96,9 @@ public class OrderCheckFragment extends BaseFragment implements View.OnClickList
 		super.onClick(v);
 		switch (v.getId()) {
 			case R.id.btn_call_customer:
-//			if (status.driver_phone!=null && !status.driver_phone.equalsIgnoreCase("")) {
-//				makeCall(status.driver_phone);
-//			}
+			if (status.phone_number!=null && !status.phone_number.equalsIgnoreCase("")) {
+				makeCall(status.phone_number);
+			}
 			break;
 		default:
 			break;

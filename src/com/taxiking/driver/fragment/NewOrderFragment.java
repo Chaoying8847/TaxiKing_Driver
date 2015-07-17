@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.taxiking.driver.LoginActivity;
 import com.taxiking.driver.MainActivity;
 import com.taxiking.driver.R;
 import com.taxiking.driver.apiservice.HttpApi;
