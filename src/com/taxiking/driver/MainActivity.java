@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
@@ -20,7 +21,9 @@ import com.taxiking.driver.base.BaseFragmentActivity;
 import com.taxiking.driver.fragment.NewOrderFragment;
 import com.taxiking.driver.fragment.OrderCheckFragment;
 import com.taxiking.driver.fragment.OrderHistoryFragment;
+import com.taxiking.driver.model.CurrentStatus;
 import com.taxiking.driver.utils.AppConstants;
+import com.taxiking.driver.utils.AppDataUtilities;
 import com.taxiking.driver.utils.WaitDialog;
 import com.taxiking.driver.view.dialog.SSMessageDialog;
 import com.taxiking.driver.view.dialog.SSMessageDialog.MessageDilogListener;
@@ -29,6 +32,7 @@ public class MainActivity extends BaseFragmentActivity {
 
 	private OrderHistoryFragment orderHistoryFragment;
 	public static MainActivity instance; 
+	private static Boolean shouldCallStatus;
 	private WaitDialog waitDlg;
 	
 	public int mCurrentFragmentIndex;
@@ -62,6 +66,19 @@ public class MainActivity extends BaseFragmentActivity {
 		}
 
 		logout();
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		shouldCallStatus = true;
+		callCurrentStatus();
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		shouldCallStatus = false;
 	}
 	
 	public void logout() {
@@ -109,6 +126,66 @@ public class MainActivity extends BaseFragmentActivity {
 	
 	public void hideWaitView() {
 		waitDlg.cancel();
+	}
+	
+	private void callCurrentStatus() {
+		Handler handler = new Handler();
+		handler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				if (shouldCallStatus) {
+					if (mCurrentFragmentIndex == AppConstants.SW_FRAGMENT_ORDER_HISTORY) {
+						new CurrentAsyncTask().execute();
+					}
+					callCurrentStatus();
+				}
+			}
+		}, 5000);
+	}
+	
+	public class CurrentAsyncTask extends AsyncTask<String, String, JSONObject> {
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+		}
+		
+		@Override
+		protected JSONObject doInBackground(String... args) {
+			
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("session_token", prefs.getSession()));
+
+			return HttpApi.callToJson(AppConstants.HOST_CURRENT_STATUS, METHOD.POST, params, null);
+		}
+
+		@Override
+		protected void onPostExecute(JSONObject res) {
+			try {
+				String result = res.getString("result");
+				if (result.equalsIgnoreCase("success")) {
+					if (res.has("new_order")) {
+						CurrentStatus status = CurrentStatus.fromJSON(res.getJSONObject("new_order"));
+						if (status.state.equalsIgnoreCase("new")) {
+							AppDataUtilities.sharedInstance().status = status;
+							MainActivity.instance.SwitchContent(AppConstants.SW_FRAGMENT_NEW_ORDER, null);
+						} else if (status.state.equalsIgnoreCase("accepted")) {
+							AppDataUtilities.sharedInstance().status = status;
+							MainActivity.instance.SwitchContent(AppConstants.SW_FRAGMENT_CONFIRM_ORDER, null);
+						}
+					}
+				} else {
+					try {
+						String errorMsg = res.getString("error");
+//						Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
+					}catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public class LogoutAsyncTask extends AsyncTask<String, String, JSONObject> {

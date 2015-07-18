@@ -22,7 +22,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.taxiking.driver.MainActivity;
 import com.taxiking.driver.R;
@@ -87,6 +86,7 @@ public class OrderCheckFragment extends BaseFragment implements View.OnClickList
 			@Override
 			public void run() {
 				new CurrentAsyncTask().execute();
+				callCurrentStatus();
 			}
 		}, 5000);
 	}
@@ -152,20 +152,8 @@ public class OrderCheckFragment extends BaseFragment implements View.OnClickList
 						if (!status.state.equalsIgnoreCase("accepted")) {
 							AppDataUtilities.sharedInstance().status = status;
 							MainActivity.instance.SwitchContent(AppConstants.SW_FRAGMENT_ORDER_HISTORY, null);
-						} else {
-							callCurrentStatus();
-						}						
-					} else {
-						callCurrentStatus();
+						}
 					}
-				} else {
-					try {
-						String errorMsg = res.getString("error");
-						Toast.makeText(parent, errorMsg, Toast.LENGTH_LONG).show();
-					}catch (JSONException e) {
-						e.printStackTrace();
-					}
-					callCurrentStatus();
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
