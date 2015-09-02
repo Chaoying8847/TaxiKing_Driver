@@ -20,10 +20,8 @@ public class AppPreferences {
 	
 	private final String CATEGORY_ENABLED = "CATEGORY_ENABLED";
 	
-	private final String USER_UID = "USER_UID";
-	private final String USER_FNAME = "USER_FNAME";
-	private final String USER_LNAME = "USER_LNAME";
-	private final String USER_TYPE = "USER_TYPE";
+	private final String PHONE_NUMBER 	= "PHONE_NUMBER";
+	private final String PASSWORD	 	= "PASSWORD";
 
 	private final String SERVER_IP = "SERVER_IP";
 
@@ -68,27 +66,40 @@ public class AppPreferences {
 	}
 	
 	public String getLatitude() {
-		String value = mPrefs.getString(LOCATION_LAT, "");
+		String value = mPrefs.getString(LOCATION_LAT, "39.9388838");
+//		String value = mPrefs.getString(LOCATION_LAT, "");
 		return value;
 	}
 	
 	public String getLongitude() {
-		String value = mPrefs.getString(LOCATION_LON, "");
+		String value = mPrefs.getString(LOCATION_LON, "116.3974589");
+//		String value = mPrefs.getString(LOCATION_LON, "");
 		return value;
 	}
 	
-	
-	
-	
-	public void setLastName(String value) {
-		mPrefsEditor.putString(USER_LNAME, value);
+	public void setPhoneNumber(String value) {
+		mPrefsEditor.putString(PHONE_NUMBER, value);
 		mPrefsEditor.commit();
 	}
 	
-	public String getLastName() {
-		String value = mPrefs.getString(USER_LNAME, "");
+	public String getPhoneNumber() {
+		String value = mPrefs.getString(PHONE_NUMBER, "");
 		return value;
 	}
+	
+	public void setPassword(String value) {
+		mPrefsEditor.putString(PASSWORD, value);
+		mPrefsEditor.commit();
+	}
+	
+	public String getPassword() {
+		String value = mPrefs.getString(PASSWORD, "");
+		return value;
+	}
+	
+	
+	
+	
 	
 	public void setWillTicketSubmit(boolean value) {
 		mPrefsEditor.putBoolean(WILL_SUBMIT, value);

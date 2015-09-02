@@ -3,6 +3,7 @@ package com.taxiking.driver;
 import android.app.Application;
 
 import com.parse.Parse;
+import com.parse.ParseInstallation;
 import com.taxiking.driver.service.GPSTracker;
 
 public class TaxiKing extends Application {
@@ -12,8 +13,9 @@ public class TaxiKing extends Application {
 	public void onCreate() {
 		super.onCreate();
 		
-		Parse.initialize(this, "9wvAGHzEjnKQ7KjG8mJjLFwQYDlB1ityliXxGAl7", "4p6xJzoF9EPAlRGYhjP3zuJKMNbsbxcyBDLcgNA9");
-//		PushService.setDefaultPushCallback(this, MainActivity.class);
+		// Initialize the Parse SDK.
+		Parse.initialize(this, "OTMXdlHNn3DCxC7XhrfDYGEeuEdnLvruIdWhPwkw", "Hl2PHCJYMjzRZNrxSgMCQgxGx9AAWQz6rDwmiD4q"); 
+		ParseInstallation.getCurrentInstallation().saveInBackground();
 		
 		gpsTracker = new GPSTracker(this);
 		gpsTracker.startTracking();

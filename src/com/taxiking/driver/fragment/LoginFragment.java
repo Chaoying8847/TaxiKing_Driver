@@ -1,6 +1,7 @@
 package com.taxiking.driver.fragment;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
@@ -18,6 +19,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.parse.ParseException;
+import com.parse.ParseInstallation;
+import com.parse.ParsePush;
+import com.parse.SaveCallback;
 import com.taxiking.driver.LoginActivity;
 import com.taxiking.driver.MainActivity;
 import com.taxiking.driver.R;
@@ -135,6 +140,11 @@ public class LoginFragment extends BaseFragment {
 						parent.prefs.setSession(session_token);
 						
 						AppDataUtilities.sharedInstance().setDataFromLoginJsonData(res);
+						
+						ParsePush.subscribeInBackground("CN_" + txtPhoneNumber.getText().toString());
+						
+						parent.prefs.setPhoneNumber(txtPhoneNumber.getText().toString());
+						parent.prefs.setPassword(txtPassword.getText().toString());
 						
 						getActivity().finish();
 			            Intent intent = new Intent(getActivity(), MainActivity.class);

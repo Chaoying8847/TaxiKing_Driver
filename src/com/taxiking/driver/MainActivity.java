@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
+import com.parse.ParsePush;
 import com.taxiking.driver.apiservice.HttpApi;
 import com.taxiking.driver.apiservice.HttpApi.METHOD;
 import com.taxiking.driver.base.BaseFragmentActivity;
@@ -213,6 +214,9 @@ public class MainActivity extends BaseFragmentActivity {
 	
 				if (result.equalsIgnoreCase("success")) {
 					prefs.setSession("");
+					
+					ParsePush.unsubscribeInBackground("CN_" + prefs.getPhoneNumber());
+					
 					Intent intent = new Intent(MainActivity.instance, LoginActivity.class);
 					startActivity(intent);
 					MainActivity.instance.finish();

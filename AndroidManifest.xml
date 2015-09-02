@@ -5,8 +5,29 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="16"
         android:targetSdkVersion="19" />
+    
+    <!-- parse permission -->
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+	<uses-permission android:name="android.permission.VIBRATE" />
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
+	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+	<permission android:name="com.taxiking.driver.permission.C2D_MESSAGE"
+		android:protectionLevel="signature" />
+	<uses-permission android:name="com.taxiking.driver.permission.C2D_MESSAGE" />
+	
+	<meta-data
+	    android:name="com.parse.push.notification_icon" 
+	    android:resource="@drawable/ic_launcher" />
+	<!-- meta-data
+	    android:name="com.google.android.gms.version"
+	    android:value="@integer/google_play_services_version" /-->
+	<!-- end parse permission -->
 
     <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -40,14 +61,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-	
     
-	<uses-permission android:name="android.permission.VIBRATE" />
-	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-	<permission android:name="com.taxiking.driver.permission.C2D_MESSAGE"
-		android:protectionLevel="signature" />
-	<uses-permission android:name="com.taxiking.driver.permission.C2D_MESSAGE" />
-	
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
@@ -88,23 +102,38 @@
         <service android:name="com.taxiking.driver.service.SubmitService"
             android:enabled="true"/>
         
-        
+        <!-- Parse push notification -->
         <service android:name="com.parse.PushService" />
-		<receiver android:name="com.parse.ParseBroadcastReceiver">
-			<intent-filter>
-				<action android:name="android.intent.action.BOOT_COMPLETED" />
-				<action android:name="android.intent.action.USER_PRESENT" />
-			</intent-filter>
-		</receiver>
-		<receiver android:name="com.parse.GcmBroadcastReceiver"
-			android:permission="com.google.android.c2dm.permission.SEND">
-			<intent-filter>
-				<action android:name="com.google.android.c2dm.intent.RECEIVE" />
-				<action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-				<category android:name="com.taxiking.driver" />
-			</intent-filter>
-		</receiver>
 
+        <receiver android:name="com.parse.ParseBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.parse.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.taxiking.driver" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.taxiking.driver.push.PushReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.parse.push.intent.RECEIVE" />
+                <action android:name="com.parse.push.intent.DELETE" />
+                <action android:name="com.parse.push.intent.OPEN" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.taxiking.driver.push.PushIntentService" />
+        <service android:name="com.taxiking.driver.push.NotificationService" />
+        <!-- End of push notification -->
     </application>
 
 </manifest>
